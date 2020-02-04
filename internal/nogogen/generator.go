@@ -96,10 +96,12 @@ func Run() {
 			if e = enc.Encode(f); e != nil {
 				return fmt.Errorf("error encoding nogo file: %v", e)
 			}
-			b := buf.Bytes()
+			// get slice of bytes from buffr
+			b := make([]byte, len(buf.Bytes()))
+			copy(b, buf.Bytes())
 			buf.Reset()
 
-			// Add file to map
+			// add file to map
 			files[relativePath] = b
 
 			return nil
@@ -109,28 +111,28 @@ func Run() {
 		}
 	}
 
-	// Create blob file
+	// create blob file
 	f, err := os.Create(targetFile)
 	if err != nil {
 		log.Fatalf("Error creating file: %v", err)
 	}
 	defer f.Close()
 
-	// Create buffer
+	// create buffer
 	builder := &bytes.Buffer{}
 
-	// Execute template
+	// execute template
 	if err = tmpl.Execute(builder, files); err != nil {
 		log.Fatalf("Error executing template: %v", err)
 	}
 
-	// Formatting generated code
+	// formatting generated code
 	data, err := format.Source(builder.Bytes())
 	if err != nil {
 		log.Fatalf("Error formatting generated code: %v", err)
 	}
 
-	// Writing blob file
+	// writing blob file
 	if err = ioutil.WriteFile(targetFile, data, os.ModePerm); err != nil {
 		log.Fatalf("Error writing file: %v", err)
 	}
