@@ -2,8 +2,8 @@ package nogo
 
 import (
 	"bytes"
-	"fmt"
 	"net/http"
+	"os"
 
 	"encoding/gob"
 )
@@ -37,7 +37,7 @@ func Open(name string) (File, error) {
 		}
 		return f, nil
 	}
-	return f, fmt.Errorf("file named '%v' not found", name)
+	return f, os.ErrNotExist
 }
 
 // Open returns a http.File based on the given name.
