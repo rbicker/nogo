@@ -73,10 +73,6 @@ func Run() {
 	targetFile = modPath + targetFile
 	log.Printf("using the following target file: %v\n", targetFile)
 
-	// encoder
-	var b bytes.Buffer
-	enc := gob.NewEncoder(&b)
-
 	// map for nogo files
 	files := make(map[string][]byte)
 
@@ -94,6 +90,9 @@ func Run() {
 				log.Printf("error creating nogo file: %v", e)
 				return e
 			}
+			// encoder
+			var b bytes.Buffer
+			enc := gob.NewEncoder(&b)
 			e = enc.Encode(f)
 
 			// Add file to map

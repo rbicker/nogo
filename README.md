@@ -13,7 +13,7 @@ go get github.com/rbicker/nogo/cmd/nogogen
 # run nogogen to generate a a nogo file within your golang project
 nogogen
 
-# be default, nogogen will include a folder called "assets" and all of it's subfolders and -files
+# by default, nogogen will include a folder called "assets" and all of it's subfolders and -files
 # if you want to include other (maybe multiple) directories, use the NOGO_DIRS env variable
 NOGO_DIRS="/templates /public" nogogen
 # please make sure to use absolute paths, using your project directory as root
