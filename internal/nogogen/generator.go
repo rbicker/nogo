@@ -76,10 +76,6 @@ func Run() {
 	// map for nogo files
 	files := make(map[string][]byte)
 
-	// encoder
-	var buf bytes.Buffer
-	enc := gob.NewEncoder(&buf)
-
 	// loop through paths
 	for _, pth := range paths {
 		pth = modPath + pth
@@ -93,14 +89,13 @@ func Run() {
 			if e != nil {
 				return fmt.Errorf("error creating nogo file: %v", e)
 			}
+			// encoder
+			var buf bytes.Buffer
+			enc := gob.NewEncoder(&buf)
 			if e = enc.Encode(f); e != nil {
 				return fmt.Errorf("error encoding nogo file: %v", e)
 			}
-			// get slice of bytes from buffr
-			b := make([]byte, len(buf.Bytes()))
-			copy(b, buf.Bytes())
-			buf.Reset()
-
+			b := buf.Bytes()
 			// add file to map
 			files[relativePath] = b
 
