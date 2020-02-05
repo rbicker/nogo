@@ -10,25 +10,21 @@ import (
 )
 
 // map for storing the nogos files as slice of bytes
-var nogos map[string][]byte
+var nogos = make(map[string][]byte)
 
-// Dir corresponds to http.FileSystem
+// Dir corresponds to http.FileSystem.
 type Dir string
 
 // ensure Dir corresponds to http.FileSystem
 var _ http.FileSystem = Dir("")
-
-func init() {
-	nogos = make(map[string][]byte)
-}
 
 // Add adds the given bytes to nogo under the given name.
 func Add(name string, b []byte) {
 	nogos[name] = b
 }
 
-// Open decodes the file with the given name.
-func Open(name string) (File, error) {
+// Get decodes the file with the given name.
+func Get(name string) (File, error) {
 	f := File{}
 	if b, ok := nogos[name]; ok {
 		r := bytes.NewReader(b)
@@ -45,6 +41,6 @@ func Open(name string) (File, error) {
 // The function corresponds to http.FileSystem.
 func (d Dir) Open(name string) (http.File, error) {
 	var res http.File
-	res, err := Open(filepath.Join(string(d), name))
+	res, err := Get(filepath.Join(string(d), name))
 	return res, err
 }
