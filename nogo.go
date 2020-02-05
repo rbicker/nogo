@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"net/http"
 	"os"
+	"path/filepath"
 
 	"encoding/gob"
 )
@@ -42,8 +43,8 @@ func Open(name string) (File, error) {
 
 // Open returns a http.File based on the given name.
 // The function corresponds to http.FileSystem.
-func (Dir) Open(name string) (http.File, error) {
+func (d Dir) Open(name string) (http.File, error) {
 	var res http.File
-	res, err := Open(name)
+	res, err := Open(filepath.Join(string(d), name))
 	return res, err
 }
