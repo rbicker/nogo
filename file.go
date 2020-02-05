@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"fmt"
 	"io"
+	"io/ioutil"
 	"net/http"
 	"os"
 )
@@ -78,11 +79,6 @@ func LoadFile(name string) (File, error) {
 		return res, fmt.Errorf("%v: could not get file info from file named %v", err, name)
 	}
 	res.FileInfo = fileInfoFromOS(info)
-
-	_, err = f.Read(res.Content)
-	if err != nil {
-		return res, fmt.Errorf("%v: could not read file named %v", err, name)
-	}
 	if info.IsDir() {
 		infos, err := f.Readdir(0)
 		if err != nil {
@@ -90,6 +86,11 @@ func LoadFile(name string) (File, error) {
 		}
 		for _, info := range infos {
 			res.DirInfos = append(res.DirInfos, fileInfoFromOS(info))
+		}
+	} else {
+		res.Content, err = ioutil.ReadFile(f.Name())
+		if err != nil {
+			return res, fmt.Errorf("%v: could not read file named %v", err, name)
 		}
 	}
 	return res, err
