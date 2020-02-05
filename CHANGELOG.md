@@ -9,4 +9,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.1.0] - 2020-02-04
 ### Added
 - initial version of nogogen to generate nogo.go file from given directories
-- basic functionally to use files from nogo.go using "Open" or "Dir"
+- basic functionally to use files from nogo.go using "Get" or "Dir"
