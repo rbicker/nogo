@@ -11,7 +11,7 @@ func TestLoadFile(t *testing.T) {
 		t.Error(err)
 	}
 	if f.FileInfo.Name() != "file.go" {
-		t.Errorf("LoadFile with file.go failed, expected fileinfo name %v, got %v", "file.go", f.FileInfo.Name())
+		t.Errorf("LoadFile with file.go failed, expected fileinfo FileName %v, got %v", "file.go", f.FileInfo.Name())
 	}
 	if f.FileInfo.IsDir() {
 		t.Errorf("LoadFile with file.go failed, expected fileinfo is dir %v, got %v", false, true)

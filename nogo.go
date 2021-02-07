@@ -18,12 +18,12 @@ type Dir string
 // ensure Dir corresponds to http.FileSystem
 var _ http.FileSystem = Dir("")
 
-// Add adds the given bytes to nogo under the given name.
+// Add adds the given bytes to nogo under the given FileName.
 func Add(name string, b []byte) {
 	nogos[name] = b
 }
 
-// Get decodes the file with the given name.
+// Get decodes the file with the given FileName.
 func Get(name string) (*File, error) {
 	f := &File{}
 	if b, ok := nogos[name]; ok {
@@ -37,7 +37,7 @@ func Get(name string) (*File, error) {
 	return f, os.ErrNotExist
 }
 
-// Open returns a http.File based on the given name.
+// Open returns a http.File based on the given FileName.
 // The function corresponds to http.FileSystem.
 func (d Dir) Open(name string) (http.File, error) {
 	res, err := Get(filepath.Join(string(d), name))
