@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io"
 	"io/ioutil"
+	"log"
 	"net/http"
 	"os"
 )
@@ -13,42 +14,43 @@ import (
 // It implements the http.File interface.
 type File struct {
 	//File os.File
-	FileInfo FileInfo
+	FileInfo *FileInfo
 	Content  []byte
 	DirInfos []FileInfo
-	Reader   *bytes.Reader
+	reader   *bytes.Reader
 }
 
 // ensure File corresponds to http.File.
-var _ http.File = File{}
+var _ http.File = &File{}
 
 // Close implements the io.Closer interface.
 // It does not do anything at the moment.
-func (f File) Close() error {
+func (f *File) Close() error {
 	return nil
 }
 
 // Seek implements the io.Seeker interface.
-func (f File) Seek(offset int64, whence int) (int64, error) {
-	if f.Reader == nil {
-		f.Reader = bytes.NewReader(f.Content)
+func (f *File) Seek(offset int64, whence int) (int64, error) {
+	if f.reader == nil {
+		f.reader = bytes.NewReader(f.Content)
 	}
-	return f.Reader.Seek(offset, whence)
+	return f.reader.Seek(offset, whence)
 }
 
 // Read implements the io.Reader interface.
-func (f File) Read(b []byte) (int, error) {
-	if f.Reader == nil {
-		f.Reader = bytes.NewReader(f.Content)
+func (f *File) Read(b []byte) (int, error) {
+	if f.reader == nil {
+		log.Println("creating new reader")
+		f.reader = bytes.NewReader(f.Content)
 	}
-	return f.Reader.Read(b)
+	return f.reader.Read(b)
 }
 
 // Readdir corresponds to the http.file interface.
-func (f File) Readdir(count int) ([]os.FileInfo, error) {
+func (f *File) Readdir(count int) ([]os.FileInfo, error) {
 	var infos []os.FileInfo
 	for _, info := range f.DirInfos {
-		infos = append(infos, info)
+		infos = append(infos, &info)
 	}
 	if count > len(f.DirInfos) {
 		return infos, io.EOF
@@ -57,7 +59,7 @@ func (f File) Readdir(count int) ([]os.FileInfo, error) {
 }
 
 // Stat corresponds to the http.file interface.
-func (f File) Stat() (os.FileInfo, error) {
+func (f *File) Stat() (os.FileInfo, error) {
 	return f.FileInfo, nil
 }
 
@@ -81,7 +83,7 @@ func LoadFile(name string) (File, error) {
 			return res, fmt.Errorf("could not readdir for file named %s: %w", name, err)
 		}
 		for _, info := range infos {
-			res.DirInfos = append(res.DirInfos, NewFileInfo(info))
+			res.DirInfos = append(res.DirInfos, *NewFileInfo(info))
 		}
 	} else {
 		res.Content, err = ioutil.ReadFile(f.Name())

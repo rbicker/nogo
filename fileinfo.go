@@ -15,10 +15,10 @@ type FileInfo struct {
 }
 
 // ensure FileInfo corresponds to os.FileInfo.
-var _ os.FileInfo = FileInfo{}
+var _ os.FileInfo = &FileInfo{}
 
-func NewFileInfo(info os.FileInfo) FileInfo {
-	return FileInfo{
+func NewFileInfo(info os.FileInfo) *FileInfo {
+	return &FileInfo{
 		name:    info.Name(),
 		size:    info.Size(),
 		mode:    info.Mode(),
@@ -28,31 +28,31 @@ func NewFileInfo(info os.FileInfo) FileInfo {
 }
 
 // Name returns the file's name.
-func (info FileInfo) Name() string {
+func (info *FileInfo) Name() string {
 	return info.name
 }
 
 // Size returns the file's size.
-func (info FileInfo) Size() int64 {
+func (info *FileInfo) Size() int64 {
 	return info.size
 }
 
 // Mode returns the file's mode.
-func (info FileInfo) Mode() os.FileMode {
+func (info *FileInfo) Mode() os.FileMode {
 	return info.mode
 }
 
 // ModTime returns the file's modification time.
-func (info FileInfo) ModTime() time.Time {
+func (info *FileInfo) ModTime() time.Time {
 	return info.modTime
 }
 
 // IsDir returns true if the file is a directory.
-func (info FileInfo) IsDir() bool {
+func (info *FileInfo) IsDir() bool {
 	return info.isDir
 }
 
 // Sys returns nil.
-func (info FileInfo) Sys() interface{} {
+func (info *FileInfo) Sys() interface{} {
 	return nil
 }

@@ -24,8 +24,8 @@ func Add(name string, b []byte) {
 }
 
 // Get decodes the file with the given name.
-func Get(name string) (File, error) {
-	f := File{}
+func Get(name string) (*File, error) {
+	f := &File{}
 	if b, ok := nogos[name]; ok {
 		r := bytes.NewReader(b)
 		dec := gob.NewDecoder(r)
@@ -40,7 +40,6 @@ func Get(name string) (File, error) {
 // Open returns a http.File based on the given name.
 // The function corresponds to http.FileSystem.
 func (d Dir) Open(name string) (http.File, error) {
-	var res http.File
 	res, err := Get(filepath.Join(string(d), name))
 	return res, err
 }

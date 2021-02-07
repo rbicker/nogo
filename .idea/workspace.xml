@@ -4,6 +4,9 @@
     <list default="true" id="ba129465-f163-4b90-bbb5-0841879380e9" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CHANGELOG.md" beforeDir="false" afterPath="$PROJECT_DIR$/CHANGELOG.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/file.go" beforeDir="false" afterPath="$PROJECT_DIR$/file.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/file_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/file_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fileinfo.go" beforeDir="false" afterPath="$PROJECT_DIR$/fileinfo.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/nogo.go" beforeDir="false" afterPath="$PROJECT_DIR$/nogo.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -32,6 +35,35 @@
     <property name="go.tried.to.enable.integration.vgo.integrator" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="watcher.settings" />
+  </component>
+  <component name="RunManager" selected="Go Test.go test github.com/rbicker/nogo">
+    <configuration name="TestRead in github.com/rbicker/nogo" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="nogo" />
+      <working_directory value="$PROJECT_DIR$" />
+      <framework value="gotest" />
+      <kind value="PACKAGE" />
+      <package value="github.com/rbicker/nogo" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <pattern value="^\QTestRead\E$" />
+      <method v="2" />
+    </configuration>
+    <configuration name="go test github.com/rbicker/nogo" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="nogo" />
+      <working_directory value="$PROJECT_DIR$" />
+      <framework value="gotest" />
+      <kind value="PACKAGE" />
+      <package value="github.com/rbicker/nogo" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Go Test.go test github.com/rbicker/nogo" />
+        <item itemvalue="Go Test.TestRead in github.com/rbicker/nogo" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TypeScriptGeneratedFilesManager">

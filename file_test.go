@@ -1,6 +1,7 @@
 package nogo
 
 import (
+	"io"
 	"testing"
 )
 
@@ -21,6 +22,26 @@ func TestLoadFile(t *testing.T) {
 	}
 	if !d.FileInfo.IsDir() {
 		t.Errorf("LoadFile with file.go failed, expected fileinfo is dir %v, got %v", true, false)
+	}
+}
+
+func TestRead(t *testing.T) {
+	s := "123456789"
+	read := ""
+	f := File{Content: []byte(s)}
+	b := make([]byte, 1)
+	for {
+		_, err := f.Read(b)
+		if err == io.EOF {
+			break
+		}
+		read = read + string(b)
+		if err != nil {
+			t.Fatal(err)
+		}
+	}
+	if read != s {
+		t.Errorf("expected %s, got %s", s, read)
 	}
 }
 
