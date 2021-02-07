@@ -17,8 +17,8 @@ type FileInfo struct {
 // ensure FileInfo corresponds to os.FileInfo.
 var _ os.FileInfo = &FileInfo{}
 
-func NewFileInfo(info os.FileInfo) *FileInfo {
-	return &FileInfo{
+func NewFileInfo(info os.FileInfo) FileInfo {
+	return FileInfo{
 		FileName:    info.Name(),
 		FileSize:    info.Size(),
 		FileMode:    info.Mode(),

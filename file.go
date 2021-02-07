@@ -14,10 +14,11 @@ import (
 // It implements the http.File interface.
 type File struct {
 	//File os.File
-	FileInfo *FileInfo
-	Content  []byte
-	DirInfos []FileInfo
-	reader   *bytes.Reader
+	FileInfo     FileInfo
+	Content      []byte
+	DirInfos     []FileInfo
+	reader       *bytes.Reader
+	readDirIndex int
 }
 
 // ensure File corresponds to http.File.
@@ -47,12 +48,23 @@ func (f *File) Read(b []byte) (int, error) {
 }
 
 // Readdir corresponds to the http.file interface.
-func (f *File) Readdir(count int) ([]os.FileInfo, error) {
-	var infos []os.FileInfo
-	for _, info := range f.DirInfos {
-		infos = append(infos, &info)
+func (f *File) Readdir(n int) ([]os.FileInfo, error) {
+	if !f.FileInfo.IsDir() {
+		return nil, os.ErrInvalid
 	}
-	if count > len(f.DirInfos) {
+	var infos []os.FileInfo
+	// If n <= 0, Readdir returns all the FileInfo from the directory in a single slice.
+	// In this case, if Readdir succeeds (reads all the way to the end of the directory), it returns the slice and a nil error.
+	// If it encounters an error before the end of the directory, Readdir returns the FileInfo read until that point and a non-nil error.
+	if n <= 0 {
+		// reset index to 0 and set the number to include all the directories files.
+		f.readDirIndex = 0
+		n = len(f.DirInfos)
+	}
+	for ; f.readDirIndex < f.readDirIndex+n && f.readDirIndex < len(f.DirInfos); f.readDirIndex++ {
+		infos = append(infos, &f.DirInfos[f.readDirIndex])
+	}
+	if f.readDirIndex >= len(f.DirInfos)-1 {
 		return infos, io.EOF
 	}
 	return infos, nil
@@ -60,7 +72,7 @@ func (f *File) Readdir(count int) ([]os.FileInfo, error) {
 
 // Stat corresponds to the http.file interface.
 func (f *File) Stat() (os.FileInfo, error) {
-	return f.FileInfo, nil
+	return &f.FileInfo, nil
 }
 
 // LoadFile creates a new nogo file.
@@ -83,7 +95,7 @@ func LoadFile(name string) (File, error) {
 			return res, fmt.Errorf("could not readdir for file named %s: %w", name, err)
 		}
 		for _, info := range infos {
-			res.DirInfos = append(res.DirInfos, *NewFileInfo(info))
+			res.DirInfos = append(res.DirInfos, NewFileInfo(info))
 		}
 	} else {
 		res.Content, err = ioutil.ReadFile(f.Name())

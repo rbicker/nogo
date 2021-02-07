@@ -51,7 +51,7 @@ func TestReaddir(t *testing.T) {
 		t.Error(err)
 	}
 	infos, err := d.Readdir(0)
-	if err != nil {
+	if err != io.EOF {
 		t.Error(err)
 	}
 	name := infos[0].Name()

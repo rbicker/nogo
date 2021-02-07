@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.0] - 2020-07-06
+### Added
+* full implementation of Readdir
+### Fixed
+* bugfix losing information because of decoding pointers instead of vars
+
 ## [0.1.6] - 2020-07-06
 ### Fixed
 * fixed exported fields in file info
