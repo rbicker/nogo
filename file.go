@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"io"
 	"io/ioutil"
-	"log"
 	"net/http"
 	"os"
 )
@@ -41,7 +40,6 @@ func (f *File) Seek(offset int64, whence int) (int64, error) {
 // Read implements the io.Reader interface.
 func (f *File) Read(b []byte) (int, error) {
 	if f.reader == nil {
-		log.Println("creating new reader")
 		f.reader = bytes.NewReader(f.Content)
 	}
 	return f.reader.Read(b)
