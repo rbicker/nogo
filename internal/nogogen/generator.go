@@ -30,7 +30,7 @@ func Dir(name string) nogo.Dir {
 }
 
 // Get receives the nogo file.
-func Get(name string) (nogo.File, error) {
+func Get(name string) (*nogo.File, error) {
 	return nogo.Get(name)
 }
 

@@ -4,10 +4,7 @@
     <list default="true" id="ba129465-f163-4b90-bbb5-0841879380e9" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CHANGELOG.md" beforeDir="false" afterPath="$PROJECT_DIR$/CHANGELOG.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/file.go" beforeDir="false" afterPath="$PROJECT_DIR$/file.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/file_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/file_test.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fileinfo.go" beforeDir="false" afterPath="$PROJECT_DIR$/fileinfo.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nogo.go" beforeDir="false" afterPath="$PROJECT_DIR$/nogo.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/nogogen/generator.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/nogogen/generator.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
