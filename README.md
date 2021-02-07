@@ -49,7 +49,7 @@ func main() {
 			return
 		}
 		buf := new(strings.Builder)
-		_, err = io.Copy(buf, f.Read())
+		_, err = io.Copy(buf, f)
 		if err != nil {
 			log.Printf("error while reading test html file: %v", err)
 			w.WriteHeader(http.StatusInternalServerError)
