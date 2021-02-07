@@ -21,13 +21,17 @@ NOGO_DIRS="/templates /public" nogogen
 ```
 
 # 2) use nogo
+
 ```golang
 package main
 
 import (
+	"fmt"
 	"html/template"
+	"io"
 	"log"
 	"net/http"
+	"strings"
 
 	"github.com/rbicker/nogo-playground/internal/nogo"
 )
@@ -40,11 +44,18 @@ func main() {
 		}
 		f, err := nogo.Get("/assets/templates/test.html")
 		if err != nil {
-			log.Printf("error while opening test html file: %v\n", err)
+			log.Printf("error while opening test html file: %v", err)
 			w.WriteHeader(http.StatusInternalServerError)
 			return
 		}
-		t, err := template.New("").Parse(string(f.Content))
+		buf := new(strings.Builder)
+		_, err = io.Copy(buf, f.Read())
+		if err != nil {
+			log.Printf("error while reading test html file: %v", err)
+			w.WriteHeader(http.StatusInternalServerError)
+			return
+		}
+		t, err := template.New("").Parse(buf.String())
 		t.Execute(w, struct {
 			Foo string
 		}{

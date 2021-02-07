@@ -9,17 +9,17 @@ func TestLoadFile(t *testing.T) {
 	if err != nil {
 		t.Error(err)
 	}
-	if f.FileInfo.Name() != "file.go" {
-		t.Errorf("LoadFile with file.go failed, expected fileinfo name %v, got %v", "file.go", f.FileInfo.Name())
+	if f.info.Name() != "file.go" {
+		t.Errorf("LoadFile with file.go failed, expected fileinfo name %v, got %v", "file.go", f.info.Name())
 	}
-	if f.FileInfo.IsDir() {
+	if f.info.IsDir() {
 		t.Errorf("LoadFile with file.go failed, expected fileinfo is dir %v, got %v", false, true)
 	}
 	d, err := LoadFile("internal")
 	if err != nil {
 		t.Error(err)
 	}
-	if !d.FileInfo.IsDir() {
+	if !d.info.IsDir() {
 		t.Errorf("LoadFile with file.go failed, expected fileinfo is dir %v, got %v", true, false)
 	}
 }
