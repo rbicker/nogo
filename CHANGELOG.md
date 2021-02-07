@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.2] - 2020-07-06
+### Fixed
+* fix field exports
+* code cleanup
+
 ## [0.1.1] - 2020-07-06
 ### Fixed
 * fixed read method by using an internal reader for the File struct

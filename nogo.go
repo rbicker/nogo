@@ -18,11 +18,6 @@ type Dir string
 // ensure Dir corresponds to http.FileSystem
 var _ http.FileSystem = Dir("")
 
-// Add adds the given bytes to nogo under the given name.
-func Add(name string, b []byte) {
-	nogos[name] = b
-}
-
 // Get decodes the file with the given name.
 func Get(name string) (File, error) {
 	f := File{}
