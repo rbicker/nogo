@@ -26,7 +26,7 @@ func Add(name string, b []byte) {
 // Get decodes the file with the given FileName.
 func Get(name string) (*File, error) {
 	f := &File{}
-	if b, ok := nogos[name]; ok {
+	if b, ok := nogos[filepath.ToSlash(name)]; ok {
 		r := bytes.NewReader(b)
 		dec := gob.NewDecoder(r)
 		if err := dec.Decode(&f); err != nil {

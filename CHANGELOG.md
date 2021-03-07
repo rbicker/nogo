@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.0] - 2021-03-07
+### Added
+* multi os support - all nogo files are saved and received using forward slashes.
+
 ## [0.2.1] - 2020-07-06
 ### Fixed
 * removed log statement

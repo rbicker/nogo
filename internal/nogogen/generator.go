@@ -53,7 +53,7 @@ func fmtByteSlice(s []byte) string {
 	return builder.String()
 }
 
-// Run execudes the code generation.
+// Run executes the code generation.
 func Run() {
 	log.Println("starting nogo generator")
 	// find module directory directory
@@ -68,7 +68,7 @@ func Run() {
 	modPath := filepath.Dir(string(out))
 
 	// determine directories to include
-	paths := []string{"/assets"}
+	paths := []string{"assets"}
 	v, k := os.LookupEnv("NOGO_DIRS")
 	if k {
 		paths = strings.Split(v, " ")
@@ -76,12 +76,12 @@ func Run() {
 	log.Printf("using the following paths: %v\n", paths)
 
 	// determine resulting go file
-	targetFile := "/internal/nogo/nogo.go"
+	targetFile := filepath.Join("internal", "nogo", "nogo.go")
 	v, k = os.LookupEnv("NOGO_FILE")
 	if k {
 		targetFile = v
 	}
-	targetFile = modPath + targetFile
+	targetFile = filepath.Join(modPath, targetFile)
 	log.Printf("using the following target file: %v\n", targetFile)
 
 	// map for nogo files
@@ -89,7 +89,7 @@ func Run() {
 
 	// loop through paths
 	for _, pth := range paths {
-		pth = modPath + pth
+		pth = filepath.Join(modPath, pth)
 		if _, err := os.Stat(pth); os.IsNotExist(err) {
 			log.Fatalf("path does not exist: %v", pth)
 		}
@@ -150,5 +150,5 @@ func Run() {
 		log.Fatalf("error writing file: %v", err)
 	}
 	log.Printf("sucessfully wrote: %v", targetFile)
-	log.Println("nogo generator sucessfully finished")
+	log.Println("nogo generator successfully finished")
 }
